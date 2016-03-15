@@ -49,7 +49,7 @@ def NWScore(dna1,dna2):
     Matrix = dynamic(dna1, dna2)
 
     for j in range(len(dna1)):
-        LastLine[j] = Matrix[len(dna1)][j]
+        LastLine[j] = Matrix[len(dna2)][j]
     return LastLine
 
 ################################################
@@ -97,18 +97,18 @@ def dynamic(dna1, dna2):
 
     Matrix = [[0 for n in range(len(dna1))] for m in range(len(dna2))]
 
-    for x in range(len(dna1)): # adds the 2nd dna sequence into the matrix (vertical x)
-        Matrix[x][0] = dictionary(dna1[x-1], '_') + Matrix[x-1][0]
+    for x in range(len(dna2)): # adds the 2nd dna sequence into the matrix (vertical x)
+        Matrix[x][0] = dictionary(dna2[x-1], '_') + Matrix[x-1][0]
 
-    for y in range(len(dna2)): # adds the 1st dan sequence into the matrix (horizontal y)
-        Matrix[0][y] = dictionary('_', dna2[y-1]) + Matrix[0][y-1]
+    for y in range(len(dna1)): # adds the 1st dan sequence into the matrix (horizontal y)
+        Matrix[0][y] = dictionary('_', dna1[y-1]) + Matrix[0][y-1]
 
-    for x in range(len(dna1)): # fills in the matrix with the comparison of dna1 to dna2
-        for y in range(len(dna2)):
+    for x in range(len(dna2)): # fills in the matrix with the comparison of dna1 to dna2
+        for y in range(len(dna1)):
             # if((x-1) >= 0 and (y-1) >= 0):
-            ifMatch = Matrix[x-1][y-1] + dictionary(dna1[x-1], dna2[y-1])
-            ifDelete = Matrix[x][y-1] + dictionary('_', dna2[y-1])
-            ifInsert = Matrix[x-1][y] + dictionary(dna1[x-1], '_')
+            ifMatch = Matrix[x-1][y-1] + dictionary(dna2[x-1], dna1[y-1])
+            ifDelete = Matrix[x][y-1] + dictionary('_', dna1[y-1])
+            ifInsert = Matrix[x-1][y] + dictionary(dna2[x-1], '_')
 
             Matrix[x][y] = max(ifDelete, ifInsert, ifMatch)
 
@@ -217,10 +217,10 @@ with open('test2.txt', 'r') as ins:
 #       function calls
 ####################################################
 
-Matrix = dynamic(seqTest1, seqTest2)
-print('Dynamic: ', Matrix[len(seqTest1)-1][len(seqTest2)-1])
-print('trackBack: ', traceBack(Matrix, seqTest1, seqTest2))
-# print('DivConq: ', divConq(seqTest1, seqTest2))
+# Matrix = dynamic(seqTest1, seqTest2)
+# print('Dynamic: ', Matrix[len(seqTest1)-1][len(seqTest2)-1])
+# print('trackBack: ', traceBack(Matrix, seqTest1, seqTest2))
+print('DivConq: ', divConq(seqTest1, seqTest2))
 
 # print'changes', matrixFill(seqTest1, seqTest2)
 # print'changes', matrixFillmatrixFill(sequenceStrGorrilla, sequenceStrHomoSapiens)
