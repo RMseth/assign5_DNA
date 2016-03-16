@@ -6,7 +6,9 @@ import numpy as np
 #           dynamic program O(n^2)
 ##############################################
 def traceBack(Matrix, dna1, dna2):
-    list = []
+    string1 = ''
+    string2 = ''
+
     i = len(Matrix) - 1
     j = len(Matrix[0]) - 1
 
@@ -14,32 +16,36 @@ def traceBack(Matrix, dna1, dna2):
     while(finished == False):
         if i <= 0 or j <= 0:
             finished = True
-        if(i > 0 and j > 0):
-            ifMatch = Matrix[i-1][j-1]
-            ifDelete = Matrix[i][j-1]
-            ifInsert = Matrix[i-1][j]
+
+        # if(i > 0 and j > 0):
+        ifMatch = Matrix[i-1][j-1]
+        ifDelete = Matrix[i][j-1]
+        ifInsert = Matrix[i-1][j]
 
         if(ifMatch >= max(ifDelete, ifInsert)):
             # no change
-            list.append((dna1[i], dna2[j]))
+            string1 = string1 + dna1[i]
+            string2 = string2 + dna2[j]
             i = i-1
             j = j-1
 
         elif(ifInsert >= max(ifMatch, ifDelete)):
             # needed to insert
-            list.append((dna1[i], '_'))
+            string1 = string1 + dna1[i]
+            string2 = string2 + '_'
             i = i-1
 
         elif(ifDelete >= max(ifMatch, ifInsert)):
             # needed to delete
-            list.append(('_', dna2[j]))
+            string1 = string1 + '_'
+            string2 = string2 + dna2[j]
             j = j-1
 
         else:
             print('somethine when wrong')
             finished = True
 
-    return list
+    return string1, string2
 
 ################################################
 #             NWScore
@@ -49,14 +55,22 @@ def NWScore(dna1,dna2):
     Matrix = dynamic(dna1, dna2)
 
     for j in range(len(dna1)):
-        LastLine[j] = Matrix[len(dna2)][j]
+        LastLine.append(Matrix[len(dna2)-1][j])
     return LastLine
 
 ################################################
 #               PartitionY
 ################################################
-def PartitionY(Matrix, scoreL, scoreR):
-    return np.argmax(Matrix, scoreL + scoreR[::-1])
+def PartitionY(scoreL, scoreR):
+    return np.argmax(scoreL + scoreR[::-1])
+
+################################################
+#             NeedlemanWunsch
+################################################
+def NeedlemanWunsch(dna1, dna2):
+
+    Matrix = dynamic(dna1, dna2)
+    return traceBack(Matrix, dna2, dna1)
 
 ################################################
 #           Divide and Conquer O(n)
@@ -66,15 +80,15 @@ def divConq(X, Y):
     W = ''
 
     if len(X) == 0:
-        for i in len(Y):
-            Z = Z + '-'
-            W = W + (Y * i)
+        for i in range(len(Y)):
+            Z = Z + '_'
+            W = W + Y[i]
     elif len(Y) == 0:
-        for i in len(X):
-            Z = Z + (X * i)
-            W = W + '-'
+        for i in range(len(X)):
+            Z = Z + X[i]
+            W = W + '_'
     elif len(X) == 1 or len(Y) == 1:
-        (Z, W) = traceBack(X, Y)
+        Z, W = NeedlemanWunsch(X, Y)
     else:
         xmid     = len(X)/2
         xmid2    = X[xmid:]
@@ -84,8 +98,13 @@ def divConq(X, Y):
         ScoreR = NWScore(revXmid2, Y[::-1])
         ymid   = PartitionY(ScoreL, ScoreR)
 
-        (Z, W) = divConq(X[:xmid], Y[:ymid]) + divConq(X[xmid:], Y[ymid:])
-    return (Z, W)
+        Z1, W1 = divConq(X[:xmid], Y[:ymid])
+        Z2, W2 = divConq(X[xmid:], Y[ymid:])
+
+        Z = Z1 + Z2
+        W = W1 + W2
+
+    return Z, W
 
 ##################################################
 #           creates matrix  for algorithms
@@ -217,10 +236,17 @@ with open('test2.txt', 'r') as ins:
 #       function calls
 ####################################################
 
-# Matrix = dynamic(seqTest1, seqTest2)
-# print('Dynamic: ', Matrix[len(seqTest1)-1][len(seqTest2)-1])
-# print('trackBack: ', traceBack(Matrix, seqTest1, seqTest2))
-print('DivConq: ', divConq(seqTest1, seqTest2))
+Matrix = dynamic(seqTest1, seqTest2)
+print('Dynamic: ', Matrix[len(seqTest1)-1][len(seqTest2)-1])
+print('trackBack: ', traceBack(Matrix, seqTest1, seqTest2))
+
+h = divConq(seqTest1, seqTest2)
+print 'trackBack: ', h
+score = 0
+for i in range(0, len(h[0])):
+    score = score + dictionary(h[0][i], h[1][i])
+
+print 'DivConq: ', score
 
 # print'changes', matrixFill(seqTest1, seqTest2)
 # print'changes', matrixFillmatrixFill(sequenceStrGorrilla, sequenceStrHomoSapiens)
