@@ -24,21 +24,21 @@ def traceBack(Matrix, dna1, dna2):
 
         if(ifMatch >= max(ifDelete, ifInsert)):
             # no change
-            string1 = string1 + dna1[i]
-            string2 = string2 + dna2[j]
+            string1 = string1 + dna1[i-1]
+            string2 = string2 + dna2[j-1]
             i = i-1
             j = j-1
 
         elif(ifInsert >= max(ifMatch, ifDelete)):
             # needed to insert
-            string1 = string1 + dna1[i]
+            string1 = string1 + dna1[i-1]
             string2 = string2 + '_'
             i = i-1
 
         elif(ifDelete >= max(ifMatch, ifInsert)):
             # needed to delete
             string1 = string1 + '_'
-            string2 = string2 + dna2[j]
+            string2 = string2 + dna2[j-1]
             j = j-1
 
         else:
@@ -114,16 +114,16 @@ def dynamic(dna1, dna2):
     dna1 = list(dna1)
     dna2 = list(dna2)
 
-    Matrix = [[0 for n in range(len(dna1))] for m in range(len(dna2))]
+    Matrix = [[0 for n in range(0, len(dna1)+1)] for m in range(0, len(dna2)+1)]
 
     for x in range(len(dna2)): # adds the 2nd dna sequence into the matrix (vertical x)
-        Matrix[x][0] = dictionary(dna2[x-1], '_') + Matrix[x-1][0]
+        Matrix[x][1] = dictionary(dna2[x-1], '_') + Matrix[x-1][0]
 
     for y in range(len(dna1)): # adds the 1st dan sequence into the matrix (horizontal y)
-        Matrix[0][y] = dictionary('_', dna1[y-1]) + Matrix[0][y-1]
+        Matrix[1][y] = dictionary('_', dna1[y-1]) + Matrix[0][y-1]
 
-    for x in range(len(dna2)): # fills in the matrix with the comparison of dna1 to dna2
-        for y in range(len(dna1)):
+    for x in range(1, len(dna2)+1): # fills in the matrix with the comparison of dna1 to dna2
+        for y in range(1,len(dna1)+1):
             # if((x-1) >= 0 and (y-1) >= 0):
             ifMatch = Matrix[x-1][y-1] + dictionary(dna2[x-1], dna1[y-1])
             ifDelete = Matrix[x][y-1] + dictionary('_', dna1[y-1])
