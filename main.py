@@ -116,10 +116,10 @@ def dynamic(dna1, dna2):
 
     Matrix = [[0 for n in range(0, len(dna1)+1)] for m in range(0, len(dna2)+1)]
 
-    for x in range(len(dna2)): # adds the 2nd dna sequence into the matrix (vertical x)
+    for x in range(1, len(dna2)+1): # adds the 2nd dna sequence into the matrix (vertical x)
         Matrix[x][1] = dictionary(dna2[x-1], '_') + Matrix[x-1][0]
 
-    for y in range(len(dna1)): # adds the 1st dan sequence into the matrix (horizontal y)
+    for y in range(1, len(dna1)+1): # adds the 1st dan sequence into the matrix (horizontal y)
         Matrix[1][y] = dictionary('_', dna1[y-1]) + Matrix[0][y-1]
 
     for x in range(1, len(dna2)+1): # fills in the matrix with the comparison of dna1 to dna2
@@ -188,70 +188,97 @@ def dictionary(letter1, letter2):
             return -1
 
 ########################################################
+#               print function
+########################################################
+def printing(file, title, h):
+    score = 0
+    f = open(str(file) + '.txt', 'w')
+    f.write(str(title) + '\n')
+    f.write('divConq\n')
+
+    for i in range(0, len(h[0])):
+        score = score + dictionary(h[0][i], h[1][i])
+
+    f.write('score: ' + str(score) + '\n')
+
+    f.write('traceback\n')
+    for i in range(len(h[0])):
+        f.write(str(h[0][i]) + ' - ' + str(h[1][i]) + '\n')
+    f.close()
+
+########################################################
 #           read in sequences and store as lists
 ########################################################
-# sequenceStrGorrilla = ""
-# with open('gorillaMitochondrial.txt', 'r') as ins:
-#     for line in ins:
-#         m = re.search('(( ?\D{1,10}){1,6})', line)
-#         sequenceStrGorrilla += m.group(0).rstrip('\n').replace(' ','')
-#     # print("\n\nGorrilla\n" + sequenceStrGorrilla)
-#
-# sequenceStrHomoSapiens = ""
-# with open('homoSapiensMitochondrion.txt', 'r') as ins:
-#     for line in ins:
-#         m = re.search('(( ?\D{1,10}){1,6})', line)
-#         sequenceStrHomoSapiens += m.group(0).rstrip('\n').replace(' ','')
-#     # print("\n\nhomoSapiense\n" + sequenceStrHomoSapiens)
-
-# sequenceStrHomoSapiensEnglish = ""
-# with open('homoSapiensMitochondrionEnglish.txt', 'r') as ins:
-#     for line in ins:
-#         m = re.search('(( ?\D{1,10}){1,6})', line)
-#         sequenceStrHomoSapiensEnglish += m.group(0).rstrip('\n').replace(' ','')
-#     # print("\n\nsequenceStrHomoSapiensEnglish\n" + sequenceStrHomoSapiensEnglish)
-#
-# sequenceStrNeanderthal = ""
-# with open('homoSapiensNeanderthalensisMitochondrion.txt', 'r') as ins:
-#     for line in ins:
-#         m = re.search('(( ?\D{1,10}){1,6})', line)
-#         sequenceStrNeanderthal += m.group(0).rstrip('\n').replace(' ','')
-#     # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
-
-seqTest1 = ""
-with open('test1.txt', 'r') as ins:
+sequenceStrGorrilla = ""
+with open('gorillaMitochondrial.txt', 'r') as ins:
     for line in ins:
         m = re.search('(( ?\D{1,10}){1,6})', line)
-        seqTest1 += m.group(0).rstrip('\n').replace(' ','').upper()
-    # print("\n\seqTest1\n" + seqTest1)
+        sequenceStrGorrilla += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nGorrilla\n" + sequenceStrGorrilla)
 
-seqTest2 = ""
-with open('test2.txt', 'r') as ins:
+sequenceStrHomoSapiens = ""
+with open('homoSapiensMitochondrion.txt', 'r') as ins:
     for line in ins:
         m = re.search('(( ?\D{1,10}){1,6})', line)
-        seqTest2 += m.group(0).rstrip('\n').replace(' ','').upper()
-    # print("\n\seqTest2\n" + seqTest2)
+        sequenceStrHomoSapiens += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nhomoSapiense\n" + sequenceStrHomoSapiens)
+
+sequenceStrHomoSapiensEnglish = ""
+with open('homoSapiensMitochondrionEnglish.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        sequenceStrHomoSapiensEnglish += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrHomoSapiensEnglish\n" + sequenceStrHomoSapiensEnglish)
+
+sequenceStrNeanderthal = ""
+with open('homoSapiensNeanderthalensisMitochondrion.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        sequenceStrNeanderthal += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+# seqTest1 = ""
+# with open('test1.txt', 'r') as ins:
+#     for line in ins:
+#         m = re.search('(( ?\D{1,10}){1,6})', line)
+#         seqTest1 += m.group(0).rstrip('\n').replace(' ','').upper()
+#     # print("\n\seqTest1\n" + seqTest1)
+#
+# seqTest2 = ""
+# with open('test2.txt', 'r') as ins:
+#     for line in ins:
+#         m = re.search('(( ?\D{1,10}){1,6})', line)
+#         seqTest2 += m.group(0).rstrip('\n').replace(' ','').upper()
+#     # print("\n\seqTest2\n" + seqTest2)
 
 ####################################################
 #       function calls
 ####################################################
 
-Matrix = dynamic(seqTest1, seqTest2)
-print('Dynamic: ', Matrix[len(seqTest1)-1][len(seqTest2)-1])
-print('trackBack: ', traceBack(Matrix, seqTest1, seqTest2))
+# Matrix = dynamic(seqTest1, seqTest2)
+# score = Matrix[len(seqTest1)-1][len(seqTest2)-1]
+# traceBackStr = traceBack(Matrix, seqTest1, seqTest2)
+# h = divConq(seqTest1, seqTest2)
+# printing('test', 'Test File', h)
 
-h = divConq(seqTest1, seqTest2)
-print 'trackBack: ', h
-score = 0
-for i in range(0, len(h[0])):
-    score = score + dictionary(h[0][i], h[1][i])
+# Matrix = dynamic(sequenceStrGorrilla, sequenceStrHomoSapiens)
+# score = Matrix[len(sequenceStrGorrilla)-1][len(sequenceStrHomoSapiens)-1]
+# traceBackStr = traceBack(Matrix, sequenceStrGorrilla, sequenceStrHomoSapiens)
 
-print 'DivConq: ', score
+h = divConq(sequenceStrGorrilla, sequenceStrHomoSapiens)
+printing('gorrilla_homosapienst', 'Gorrillas and HomoSapiens', h)
 
-# print'changes', matrixFill(seqTest1, seqTest2)
-# print'changes', matrixFillmatrixFill(sequenceStrGorrilla, sequenceStrHomoSapiens)
-# print'changes', matrixFill(sequenceStrGorrilla, sequenceStrHomoSapiensEnglish)
-# print'changes', matrixFill(sequenceStrGorrilla, sequenceStrNeanderthal)
-# print'changes', matrixFill(sequenceStrHomoSapiens, sequenceStrHomoSapiensEnglish)
-# print'changes', matrixFill(sequenceStrHomoSapiens, sequenceStrNeanderthal)
-# print'changes', matrixFill(sequenceStrHomoSapiensEnglish, sequenceStrNeanderthal)
+h = divConq(sequenceStrGorrilla, sequenceStrHomoSapiensEnglish)
+printing('gorrilla_homosapiensEnglish', 'Gorrillas and English HomoSapiens', h)
+#
+h = divConq(sequenceStrGorrilla, sequenceStrNeanderthal)
+printing('gorrilla_neanderthal', 'Gorrilla and Neanderthal', h)
+#
+h = divConq(sequenceStrHomoSapiens, sequenceStrHomoSapiensEnglish)
+printing('homosapiens_homosapiensEnglish', 'Homosapiens and English Homosapiens', h)
+#
+h = divConq(sequenceStrHomoSapiens, sequenceStrNeanderthal)
+printing('homosapiens_neanderthal', 'Homosapiens and Neanderthals', h)
+#
+h = divConq(sequenceStrHomoSapiensEnglish, sequenceStrNeanderthal)
+printing('homosapiensEnglish_neanderthal', 'English Homosapiens and Neanderthal', h)
