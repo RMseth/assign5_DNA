@@ -44,5 +44,8 @@ to keep using it.
 For one of my DivConq algorithms it takes about 20min to get through and print a result.
 
 human mitochondrial sequences:
- **** to see table go to "human" directory ****
+ **** to see table.xlsx go to "human" directory ****
+
+ape sequences:
+Something that's really cool was that the scores of the apes and neanderthals are almost the same.
 
