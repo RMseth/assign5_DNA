@@ -215,7 +215,7 @@ with open('gorillaMitochondrial.txt', 'r') as ins:
         m = re.search('(( ?\D{1,10}){1,6})', line)
         sequenceStrGorrilla += m.group(0).rstrip('\n').replace(' ','').upper()
     # print("\n\nGorrilla\n" + sequenceStrGorrilla)
-
+#
 sequenceStrHomoSapiens = ""
 with open('homoSapiensMitochondrion.txt', 'r') as ins:
     for line in ins:
@@ -230,12 +230,66 @@ with open('homoSapiensMitochondrionEnglish.txt', 'r') as ins:
         sequenceStrHomoSapiensEnglish += m.group(0).rstrip('\n').replace(' ','').upper()
     # print("\n\nsequenceStrHomoSapiensEnglish\n" + sequenceStrHomoSapiensEnglish)
 
-sequenceStrNeanderthal = ""
-with open('homoSapiensNeanderthalensisMitochondrion.txt', 'r') as ins:
+# sequenceStrNeanderthal = ""
+# with open('homoSapiensNeanderthalensisMitochondrion.txt', 'r') as ins:
+#     for line in ins:
+#         m = re.search('(( ?\D{1,10}){1,6})', line)
+#         sequenceStrNeanderthal += m.group(0).rstrip('\n').replace(' ','').upper()
+#     # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+
+
+homoSapiensMitochondrionCompleteGenome = ""
+with open('homoSapiensMitochondrionCompleteGenome.txt', 'r') as ins:
     for line in ins:
         m = re.search('(( ?\D{1,10}){1,6})', line)
-        sequenceStrNeanderthal += m.group(0).rstrip('\n').replace(' ','').upper()
+        homoSapiensMitochondrionCompleteGenome += m.group(0).rstrip('\n').replace(' ','').upper()
     # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+homoSapiensIsolate2812MitochondrionCompleteGenome = ""
+with open('homoSapiensIsolate2812MitochondrionCompleteGenome.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        homoSapiensIsolate2812MitochondrionCompleteGenome += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+homoSapiensHaplotypeA11L2bMitochondrionCompleteGenome = ""
+with open('homoSapiensHaplotypeA11L2bMitochondrionCompleteGenome.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        homoSapiensHaplotypeA11L2bMitochondrionCompleteGenome += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+homoSapiensNativeAmerican = ""
+with open('homoSapiensNativeAmerican.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        homoSapiensNativeAmerican += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+homoSapiensWarao = ""
+with open('homoSapiensWarao.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        homoSapiensWarao += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+homoSapiensChinese = ""
+with open('homoSapiensChinese.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        homoSapiensChinese += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+homoSapiensSouthernItaly = ""
+with open('homoSapiensSouthernItaly.txt', 'r') as ins:
+    for line in ins:
+        m = re.search('(( ?\D{1,10}){1,6})', line)
+        homoSapiensSouthernItaly += m.group(0).rstrip('\n').replace(' ','').upper()
+    # print("\n\nsequenceStrNeanderthal\n" + sequenceStrNeanderthal)
+
+
+
 
 # seqTest1 = ""
 # with open('test1.txt', 'r') as ins:
@@ -261,24 +315,62 @@ with open('homoSapiensNeanderthalensisMitochondrion.txt', 'r') as ins:
 # h = divConq(seqTest1, seqTest2)
 # printing('test', 'Test File', h)
 
+# **** testing full dna sequnces for CP O(n^2) ****
 # Matrix = dynamic(sequenceStrGorrilla, sequenceStrHomoSapiens)
 # score = Matrix[len(sequenceStrGorrilla)-1][len(sequenceStrHomoSapiens)-1]
 # traceBackStr = traceBack(Matrix, sequenceStrGorrilla, sequenceStrHomoSapiens)
 
+
+# h = divConq(sequenceStrGorrilla, sequenceStrNeanderthal)
+# printing('gorrilla_neanderthal', 'Gorrilla and Neanderthal', h)
+# #
+# h = divConq(sequenceStrHomoSapiens, sequenceStrHomoSapiensEnglish)
+# printing('homosapiens_homosapiensEnglish', 'Homosapiens and English Homosapiens', h)
+# #
+
+# neanderthal tests
+# h = divConq(sequenceStrHomoSapiens, sequenceStrNeanderthal)
+# printing('homosapiens_neanderthal', 'Homosapiens and Neanderthals', h)
+#
+# h = divConq(sequenceStrHomoSapiensEnglish, sequenceStrNeanderthal)
+# printing('homosapiensEnglish_neanderthal', 'English Homosapiens and Neanderthal', h)
+
+# h = divConq(homoSapiensMitochondrionCompleteGenome, sequenceStrNeanderthal)
+# printing('homosapiensMitochondrionCompleteGenome_neanderthal', 'English Homosapiens and Neanderthal', h)
+#
+# h = divConq(homoSapiensIsolate2812MitochondrionCompleteGenome, sequenceStrNeanderthal)
+# printing('homosapiensIsolate2812MitochondrionCompleteGenome_neanderthal', 'English Homosapiens and Neanderthal', h)
+#
+# h = divConq(homoSapiensHaplotypeA11L2bMitochondrionCompleteGenome, sequenceStrNeanderthal)
+# printing('homosapiensHaplotypeA11L2bMitochondrionCompleteGenome_neanderthal', 'English Homosapiens and Neanderthal', h)
+#
+# h = divConq(homoSapiensNativeAmerican, sequenceStrNeanderthal)
+# printing('homosapiensNativeAmerican_neanderthal', 'English Homosapiens and Neanderthal', h)
+#
+# h = divConq(homoSapiensWarao, sequenceStrNeanderthal)
+# printing('homosapiensWarao_neanderthal', 'English Homosapiens and Neanderthal', h)
+#
+# h = divConq(homoSapiensChinese, sequenceStrNeanderthal)
+# printing('homosapiensChinese_neanderthal', 'English Homosapiens and Neanderthal', h)
+#
+# h = divConq(homoSapiensSouthernItaly, sequenceStrNeanderthal)
+# printing('homosapiensSouthernItaly_neanderthal', 'English Homosapiens and Neanderthal', h)
+
+# ape tests
 h = divConq(sequenceStrGorrilla, sequenceStrHomoSapiens)
 printing('gorrilla_homosapienst', 'Gorrillas and HomoSapiens', h)
 
 h = divConq(sequenceStrGorrilla, sequenceStrHomoSapiensEnglish)
 printing('gorrilla_homosapiensEnglish', 'Gorrillas and English HomoSapiens', h)
-#
-h = divConq(sequenceStrGorrilla, sequenceStrNeanderthal)
-printing('gorrilla_neanderthal', 'Gorrilla and Neanderthal', h)
-#
-h = divConq(sequenceStrHomoSapiens, sequenceStrHomoSapiensEnglish)
-printing('homosapiens_homosapiensEnglish', 'Homosapiens and English Homosapiens', h)
-#
-h = divConq(sequenceStrHomoSapiens, sequenceStrNeanderthal)
-printing('homosapiens_neanderthal', 'Homosapiens and Neanderthals', h)
-#
-h = divConq(sequenceStrHomoSapiensEnglish, sequenceStrNeanderthal)
-printing('homosapiensEnglish_neanderthal', 'English Homosapiens and Neanderthal', h)
+
+h = divConq(sequenceStrGorrilla, homoSapiensSouthernItaly)
+printing('gorrilla_homoSapiensSouthernItaly', 'Gorrillas and English HomoSapiens', h)
+
+h = divConq(sequenceStrGorrilla, homoSapiensChinese)
+printing('gorrilla_homoSapiensChinese', 'Gorrillas and English HomoSapiens', h)
+
+h = divConq(sequenceStrGorrilla, homoSapiensWarao)
+printing('gorrilla_homoSapiensWarao', 'Gorrillas and English HomoSapiens', h)
+
+h = divConq(sequenceStrGorrilla, homoSapiensNativeAmerican)
+printing('gorrilla_homoSapiensNativeAmerican', 'Gorrillas and English HomoSapiens', h)
